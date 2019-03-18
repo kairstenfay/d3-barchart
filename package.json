@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "d3": "^5.9.2",
+    "d3-scale": "^3.0.0",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8"

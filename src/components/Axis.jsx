@@ -8,7 +8,7 @@ export default class Axis extends React.Component {
     }
 
     componentDidUpdate() {
-        this.renderAxis();
+        // this.renderAxis();
     }
 
     renderAxis() {

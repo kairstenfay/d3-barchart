@@ -7,7 +7,10 @@ import XYAxis from './XYAxis';
 
 
 // Returns the largest X coordinate from the data set
-const xMax   = (data)  => d3.max(data, (d) => d[0]);
+const xMax   = (data)  => {
+    console.log(data);
+    d3.max(data, (d) => d[0]);
+}
 
 // Returns the highest Y coordinate from the data set
 const yMax   = (data)  => d3.max(data, (d) => d[1]);

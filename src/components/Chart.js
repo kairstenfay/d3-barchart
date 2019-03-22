@@ -12,24 +12,55 @@ const styles = {
 const numDataPoints = 50;
 
 // A function that returns a random number from 0 to 1000
-const randomNum     = () => Math.floor(Math.random() * 1000);
+// const randomNum     = () => Math.floor(Math.random() * 1000);
 
 // A function that creates an array of 50 elements of (x, y) coordinates.
 const randomDataSet = () => {
-    return Array.apply(null, {length: numDataPoints}).map(() => [randomNum(), randomNum()]);
-}
+    //return Array.apply(null, {length: numDataPoints}).map(() => [randomNum(), randomNum()]);
+    const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
+
+    fetch(url)
+        .then(response => response.json()
+            .then(function(data) {
+            // console.log(data.data);
+                let test = data.data.map(x => x);
+                return test;
+        }));
+};
 
 export default class Chart extends React.Component{
     constructor(props) {
         super(props);
-        this.state = { data: randomDataSet() };
+        this.state = {
+            data: [],
+            values: [],
+        };
     }
 
     randomizeData() {
         this.setState({ data: randomDataSet() });
     }
 
+    componentDidMount() {
+        this.getData();
+    }
+
+    getData() {
+        const url = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
+
+        fetch(url)
+            .then(res => res.json())
+            .then(jsonData => {
+                let data = jsonData.data;
+                this.setState({ data })
+            })
+            .catch(console.error)
+    }
+
     render() {
+        console.log("state");
+        console.log(this.state);
+
         return <div>
             <h1>Playing With React and D3</h1>
             <ScatterPlot {...this.state} {...styles} />

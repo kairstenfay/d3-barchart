@@ -13,7 +13,7 @@ const xMax   = (data)  => {
 
 const xMin = (data) => {
     return d3.min(data, (d) => d[0]);
-}
+};
 
 // Returns the highest Y coordinate from the data set
 const yMax   = (data)  => {
@@ -36,8 +36,6 @@ const yScale = (props) => {
 };
 
 export default (props) => {
-    console.log("scatter plot");
-    console.log(props);
     const scales = { xScale: xScale(props), yScale: yScale(props) };
     return <svg width={props.width} height={props.height}>
         <DataCircles {...props} {...scales} />

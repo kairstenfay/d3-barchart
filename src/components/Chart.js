@@ -6,14 +6,8 @@ import * as d3 from "d3";
 const styles = {
     width   : 500,
     height  : 300,
-    padding : 30,
+    padding : 40,
 };
-
-// The number of data points for the chart.
-const numDataPoints = 50;
-
-// A function that returns a random number from 0 to 1000
-// const randomNum     = () => Math.floor(Math.random() * 1000);
 
 
 export default class Chart extends React.Component{
@@ -46,8 +40,6 @@ export default class Chart extends React.Component{
     }
 
     render() {
-        console.log("state");
-        console.log(this.state);
 
         return <div>
             <h1>Playing With React and D3</h1>
@@ -75,9 +67,8 @@ const transformData = (data) => {
         return y[1]
     });
 
-    let newArray = parsedTime.map(function (item, index) {
+    return parsedTime.map(function (item, index) {
         return [item, y[index]];
     });
 
-    return newArray;
 };

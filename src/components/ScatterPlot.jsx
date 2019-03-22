@@ -7,13 +7,15 @@ import XYAxis from './XYAxis';
 
 const parseTime = d3.timeParse("%Y-%m-%d");
 
-const transformData = (props) => {
+const transformData = (data) => {
     // split, parse and zip
-    let parsedTime = props.data.map(x => {
+    console.log(data);
+    console.log("commence");
+    let parsedTime = data.map(x => {
         return parseTime(x[0])
     });
 
-    let y = props.data.map(y => {
+    let y = data.map(y => {
         return y[1]
     });
 
@@ -21,13 +23,12 @@ const transformData = (props) => {
         return [item, y[index]];
     });
 
-    console.log(newArray);
     return newArray;
 };
 
 // Returns the largest X coordinate from the data set
-const xMax   = (data)  => data[0][0]; // d3.max(data, (d) => d[0]);
-const xMin   = (data)  => data[data.length - 1][0]; // d3.min(data, (d) => d[0]);
+const xMax   = (data)  => d3.max(data, (d) => d[0]);
+const xMin   = (data)  => d3.min(data, (d) => d[0]);
 
 
 // Returns the highest Y coordinate from the data set
@@ -36,26 +37,40 @@ const yMax   = (data)  => d3.max(data, (d) => d[1]);
 // Returns a function that "scales" X coordinates from the data to fit the chart
 const xScale = (props) => {
 
+    console.log('xScale');
+
+    let transformedData = transformData(props.data);
+
     return scaleTime()
-        .domain([xMin(props.data), xMax(props.data)])
+        .domain([xMin(transformedData), xMax(transformedData)])
         .range([props.padding, props.width - props.padding]);
 };
 
 // Returns a function that "scales" Y coordinates from the data to fit the chart
 const yScale = (props) => {
 
-    console.log(yMax(props.data));
-
     return scaleLinear()
         .domain([0, yMax(props.data)])
         .range([props.height - props.padding, props.padding]);
 };
 
-export default (props) => {
-    let transformedData = transformData(props);
-    const scales = { xScale: xScale(props), yScale: yScale(props) };
-    return <svg width={props.width} height={props.height}>
-        <DataCircles {...props} {...scales} />
-        <XYAxis {...props} {...scales} />
-    </svg>
+//export default (props) => {
+
+export default class Chart extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = { data: [["1900-01-01", 0]] };
+    }
+    componentWillUpdate() {
+        console.log("updating");
+    }
+
+    render() {
+        const scales = {xScale: xScale(this.props), yScale: yScale(this.props)};
+
+        return <svg width={this.props.width} height={this.props.height}>
+            <DataCircles {...this.props} {...scales} />
+            <XYAxis {...this.props} {...scales} />
+        </svg>
+    }
 }

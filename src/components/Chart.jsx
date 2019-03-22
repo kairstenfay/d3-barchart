@@ -31,10 +31,12 @@ const styles = {
 //     };
 
 
+
+
 export default class Chart extends React.Component{
     constructor(props) {
         super(props);
-        this.state = { data: [0, 0] };
+        this.state = { data: [["2000-01-01", 0]] };
     }
 
     componentWillMount() {
@@ -43,7 +45,6 @@ export default class Chart extends React.Component{
         fetch(url)
             .then(response => response.json())
             .then(jsonData => {
-
                 this.setState({
                     data: jsonData.data
                 });

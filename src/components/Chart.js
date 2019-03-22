@@ -33,7 +33,6 @@ export default class Chart extends React.Component{
         super(props);
         this.state = {
             data: [],
-            values: [],
         };
     }
 

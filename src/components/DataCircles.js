@@ -3,14 +3,16 @@ import React from 'react';
 
 const renderCircles = (props) => {
     return (coords, index) => {
+        console.log(coords);
 
         const circleProps = {
-            cx: props.xScale(coords[0]),
-            cy: props.yScale(coords[1]),
-            r: 2,
+            x: props.xScale(coords[0]),
+            y: props.yScale(coords[1]),
+            width: 1, // props.xScale,
+            height: 300 - 40 - props.yScale(coords[1]), //  - props.yScale, todo import styles
             key: index
         };
-        return <circle {...circleProps} />;
+        return <rect {...circleProps} />;
     };
 };
 

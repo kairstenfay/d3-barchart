@@ -11,6 +11,10 @@ const xMax   = (data)  => {
     return d3.max(data, (d) => d[0]);
 };
 
+const xMin = (data) => {
+    return d3.min(data, (d) => d[0]);
+}
+
 // Returns the highest Y coordinate from the data set
 const yMax   = (data)  => {
     return d3.max(data, (d) => d[1]);
@@ -18,9 +22,9 @@ const yMax   = (data)  => {
 
 // Returns a function that "scales" X coordinates from the data to fit the chart
 const xScale = (props) => {
-    let transformedData = transformData(props.data);
+    // let transformedData = transformData(props.data);
     return scaleTime()
-        .domain([0, xMax(transformedData)])
+        .domain([xMin(props.data), xMax(props.data)])
         .range([props.padding, props.width - props.padding * 2]);
 };
 
@@ -32,6 +36,8 @@ const yScale = (props) => {
 };
 
 export default (props) => {
+    console.log("scatter plot");
+    console.log(props);
     const scales = { xScale: xScale(props), yScale: yScale(props) };
     return <svg width={props.width} height={props.height}>
         <DataCircles {...props} {...scales} />
@@ -39,22 +45,3 @@ export default (props) => {
     </svg>
 }
 
-
-const parseTime = d3.timeParse("%Y-%m-%d");
-
-const transformData = (data) => {
-    // split, parse and zip
-    let parsedTime = data.map(x => {
-        return parseTime(x[0])
-    });
-
-    let y = data.map(y => {
-        return y[1]
-    });
-
-    let newArray = parsedTime.map(function (item, index) {
-        return [item, y[index]];
-    });
-
-    return newArray;
-};

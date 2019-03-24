@@ -30,7 +30,6 @@ export default class Chart extends React.Component{
             .then(res => res.json())
             .then(jsonData => {
                 let data = jsonData.data;
-                data = transformData(data);
                 this.setState({ data })
             })
             .catch(console.error)
@@ -40,7 +39,7 @@ export default class Chart extends React.Component{
         let target = e.target;
 
         this.setState({
-            showToolTip: true, // !this.state.showToolTip,
+            showToolTip: !this.state.showToolTip,
             toolTipText: renderToolTip(target.attributes)
         })
     }
@@ -51,28 +50,17 @@ export default class Chart extends React.Component{
         <div>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
 
-            {(this.state.showToolTip) ? this.state.toolTipText : <div id="tooltip">Hover over a bar!</div>}
+            {(this.state.showToolTip) ? this.state.toolTipText : null }
 
-            {this.state.showToolTip ? this.state.toolTipText : <div><span></span></div>}
         </div>
         )
     }
 }
 
-
 function renderToolTip(attributes) {
-    if (attributes[1]) {
-        return (
-            <div id="tooltip" data-date={attributes[1].nodeValue}>
-                <span className="tooltiptext">{attributes[1].nodeValue}</span>
-            </div>
-        );
-    } else {
-        return (
-        <div className="tooltip" onMouseOver={this.toggleToolTip} onMouseOut={this.toggleToolTip} >
-            Hover over me
-            {(this.state.showToolTip) ? this.state.toolTipText : <span></span>}
+    return (
+        <div id="tooltip" data-date={attributes[1].nodeValue}>
+            <span className="tooltiptext">{attributes[1].nodeValue}</span>
         </div>
-        )
-    }
+    );
 }

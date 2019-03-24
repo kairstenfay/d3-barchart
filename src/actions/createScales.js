@@ -1,12 +1,13 @@
 import {scaleLinear, scaleTime} from "d3-scale";
 import * as d3 from "d3";
+const parseTime = d3.timeParse("%Y-%m-%d");
 
 const xMax   = (data)  => {
-    return d3.max(data, (d) => d[0]);
+    return d3.max(data, (d) => parseTime(d[0]));  // todo
 };
 
 const xMin = (data) => {
-    return d3.min(data, (d) => d[0]);
+    return d3.min(data, (d) => parseTime(d[0]));  // todo
 };
 
 // Returns the highest Y coordinate from the data set

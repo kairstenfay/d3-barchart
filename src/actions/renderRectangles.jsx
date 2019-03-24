@@ -10,9 +10,9 @@ export default function(props) {
             x: props.xScale(parseTime(coords[0])),  // todo
             y: props.yScale(coords[1]),
             width: 1, // props.xScale,
-            height: 300 - 40 - props.yScale(coords[1]), //  - props.yScale, todo import styles
+            height: props.height - props.padding - props.yScale(coords[1]),
             key: index,
         };
-        return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} />;
+        return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} fill="blue" />;
     };
 };

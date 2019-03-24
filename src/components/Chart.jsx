@@ -1,10 +1,9 @@
 import React       from 'react';
 import BarChart from './BarChart';
-import transformData from '../actions/transformData';
 
 const styles = {
-    width: 500,
-    height: 300,
+    width: Math.min(window.innerWidth, 700),
+    height: Math.min(window.innerHeight - 100, 400),
     padding: 40,
     showToolTip: false
 };
@@ -36,13 +35,17 @@ export default class Chart extends React.Component{
     }
 
     toggleToolTip(e) {
-        let target = e.target;
+        let attributes = e.target.attributes;
 
         this.setState({
             showToolTip: !this.state.showToolTip,
-            toolTipText: renderToolTip(target.attributes)
+            toolTipText: (!this.state.showToolTip) ? renderToolTip(attributes) : null,
+            dataDate: attributes['data-date'].nodeValue,
+            toolTipX: attributes.x,
+            toolTipY: attributes.y
         })
     }
+
 
     render() {
 
@@ -50,17 +53,31 @@ export default class Chart extends React.Component{
         <div>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
 
-            {(this.state.showToolTip) ? this.state.toolTipText : null }
-
         </div>
         )
     }
 }
 
 function renderToolTip(attributes) {
-    return (
-        <div id="tooltip" data-date={attributes[1].nodeValue}>
-            <span className="tooltiptext">{attributes[1].nodeValue}</span>
-        </div>
-    );
+    if (attributes && attributes['data-date']) {
+        return (
+            <text id="tooltip" data-date={attributes['data-date'].nodeValue} x="65" y="55"
+                // x={this.props.toolTipX + 3} y={this.props.toolTipY + 5}
+                  className="small">{attributes['data-date'].nodeValue}</text>
+        );
+
+        {/*<div id="tooltip" data-date={attributes['data-date'].nodeValue}>*/}
+        {/*<div className="tooltiptext">*/}
+        {/*<h2>Date</h2>*/}
+        {/*<p>*/}
+        {/*{attributes['data-date'].nodeValue}*/}
+        {/*</p>*/}
+
+        {/*<h2>GDP</h2>*/}
+        {/*<p>*/}
+        {/*{attributes['data-gdp'].nodeValue}*/}
+        {/*</p>*/}
+        {/*</div>*/}
+        {/*</div>*/}
+    }
 }

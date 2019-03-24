@@ -38,10 +38,10 @@ export default class Chart extends React.Component{
 
     toggleToolTip(e) {
         let target = e.target;
-        console.log(target);
 
         this.setState({
-            showToolTip: !this.state.showToolTip
+            showToolTip: true, // !this.state.showToolTip,
+            toolTipText: renderToolTip(target.attributes)
         })
     }
 
@@ -50,10 +50,28 @@ export default class Chart extends React.Component{
         return (
         <div>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
-                <div className="tooltip" onMouseOver={this.toggleToolTip} onMouseOut={this.toggleToolTip} >
-                    Hover over me
-                    {(this.state.showToolTip) ? <span className="tooltiptext">Tooltip text</span> : <span></span>}
-                </div>
+
+            {(this.state.showToolTip) ? this.state.toolTipText : <div id="tooltip">Hover over a bar!</div>}
+
+            {this.state.showToolTip ? this.state.toolTipText : <div><span></span></div>}
+        </div>
+        )
+    }
+}
+
+
+function renderToolTip(attributes) {
+    if (attributes[1]) {
+        return (
+            <div id="tooltip" data-date={attributes[1].nodeValue}>
+                <span className="tooltiptext">{attributes[1].nodeValue}</span>
+            </div>
+        );
+    } else {
+        return (
+        <div className="tooltip" onMouseOver={this.toggleToolTip} onMouseOut={this.toggleToolTip} >
+            Hover over me
+            {(this.state.showToolTip) ? this.state.toolTipText : <span></span>}
         </div>
         )
     }

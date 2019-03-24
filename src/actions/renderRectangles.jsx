@@ -10,6 +10,6 @@ export default function(props) {
             height: 300 - 40 - props.yScale(coords[1]), //  - props.yScale, todo import styles
             key: index,
         };
-        return <rect className="bar" data-date={rectangleProps.x} data-gdp={rectangleProps.y} {...rectangleProps} />;
+        return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} />;
     };
 };

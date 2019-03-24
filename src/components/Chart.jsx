@@ -40,9 +40,9 @@ export default class Chart extends React.Component{
         this.setState({
             showToolTip: !this.state.showToolTip,
             toolTipText: (!this.state.showToolTip) ? renderToolTip(attributes) : null,
-            dataDate: attributes['data-date'].nodeValue,
-            toolTipX: attributes.x,
-            toolTipY: attributes.y
+            // dataDate: attributes['data-date'].nodeValue,
+            // toolTipX: attributes.x.nodeValue,
+            // toolTipY: attributes.y.nodeValue
         })
     }
 
@@ -60,24 +60,25 @@ export default class Chart extends React.Component{
 
 function renderToolTip(attributes) {
     if (attributes && attributes['data-date']) {
+        const dataDate = attributes['data-date'].nodeValue;
+        const x = attributes.x.nodeValue; // todo import padding
+        const y = attributes.y.nodeValue + 90; // todo import padding
+
         return (
-            <text id="tooltip" data-date={attributes['data-date'].nodeValue} x="65" y="55"
-                // x={this.props.toolTipX + 3} y={this.props.toolTipY + 5}
-                  className="small">{attributes['data-date'].nodeValue}</text>
+
+            <g>
+            <g>
+                    <rect x={x} y={y - 20 - 20} width="100" height="30" fill="salmon" />
+                    <text id="tooltip" data-date={dataDate} x={x} y={y - 20} fill="black" >
+                        {dataDate}
+                    </text>
+
+            </g>
+                <g fill="none" stroke="black" stroke-width="2">
+
+                <circle cx={x} cy={y} r="5" />
+                </g>
+            </g>
         );
-
-        {/*<div id="tooltip" data-date={attributes['data-date'].nodeValue}>*/}
-        {/*<div className="tooltiptext">*/}
-        {/*<h2>Date</h2>*/}
-        {/*<p>*/}
-        {/*{attributes['data-date'].nodeValue}*/}
-        {/*</p>*/}
-
-        {/*<h2>GDP</h2>*/}
-        {/*<p>*/}
-        {/*{attributes['data-gdp'].nodeValue}*/}
-        {/*</p>*/}
-        {/*</div>*/}
-        {/*</div>*/}
     }
 }

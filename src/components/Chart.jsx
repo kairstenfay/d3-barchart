@@ -1,11 +1,12 @@
 import React       from 'react';
-import ScatterPlot from './BarChart';
+import BarChart from './BarChart';
 import transformData from '../actions/transformData';
 
 const styles = {
-    width   : 500,
-    height  : 300,
-    padding : 40,
+    width: 500,
+    height: 300,
+    padding: 40,
+    showToolTip: false
 };
 
 
@@ -15,6 +16,7 @@ export default class Chart extends React.Component{
         this.state = {
             data: [],
         };
+        this.toggleToolTip = this.toggleToolTip.bind(this);
     }
 
     componentDidMount() {
@@ -34,11 +36,24 @@ export default class Chart extends React.Component{
             .catch(console.error)
     }
 
+    toggleToolTip(e) {
+        let target = e.target;
+        console.log(target);
+
+        this.setState({
+            showToolTip: !this.state.showToolTip
+        })
+    }
+
     render() {
 
         return (
         <div>
-]            <ScatterPlot {...this.state} {...styles} />
+            <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
+                <div className="tooltip" onMouseOver={this.toggleToolTip} onMouseOut={this.toggleToolTip} >
+                    Hover over me
+                    {(this.state.showToolTip) ? <span className="tooltiptext">Tooltip text</span> : <span></span>}
+                </div>
         </div>
         )
     }

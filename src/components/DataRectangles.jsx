@@ -3,5 +3,6 @@ import React from 'react';
 import renderRectangles from '../actions/renderRectangles';
 
 export default (props) => {
-    return <g>{ props.data.map(renderRectangles(props)) }</g>
+    return <g onMouseOver={props.toolTipAction}>{ props.data.map(renderRectangles(props)) }
+    </g>
 }

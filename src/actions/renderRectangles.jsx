@@ -8,7 +8,7 @@ export default function(props) {
             y: props.yScale(coords[1]),
             width: 1, // props.xScale,
             height: 300 - 40 - props.yScale(coords[1]), //  - props.yScale, todo import styles
-            key: index
+            key: index,
         };
         return <rect className="bar" data-date={rectangleProps.x} data-gdp={rectangleProps.y} {...rectangleProps} />;
     };

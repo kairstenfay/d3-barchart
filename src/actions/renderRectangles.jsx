@@ -9,10 +9,13 @@ export default function(props) {
         const rectangleProps = {
             x: props.xScale(parseTime(coords[0])),  // todo
             y: props.yScale(coords[1]),
-            width: 1, // props.xScale,
+            width: 2, // props.xScale,
             height: props.height - props.padding - props.yScale(coords[1]),
             key: index,
         };
-        return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} fill="blue" />;
+
+        const fillColor = (props.dataDate === coords[0]) ? 'salmon' : 'black';
+
+        return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} fill={fillColor} />;
     };
 };

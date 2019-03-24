@@ -38,11 +38,10 @@ export default class Chart extends React.Component{
         let attributes = e.target.attributes;
 
         this.setState({
-            showToolTip: !this.state.showToolTip,
-            toolTipText: (!this.state.showToolTip) ? renderToolTip(attributes) : null,
-            // dataDate: attributes['data-date'].nodeValue,
-            // toolTipX: attributes.x.nodeValue,
-            // toolTipY: attributes.y.nodeValue
+            dataDate: attributes['data-date'].nodeValue,
+            showToolTip: !this.state.showToolTip, // todo d-r-y
+            toolTipSVG: (!this.state.showToolTip) ? renderToolTip(attributes) : null,
+            fillColor: (!this.state.showToolTip) ? "black" : "salmon",
         })
     }
 
@@ -52,7 +51,6 @@ export default class Chart extends React.Component{
         return (
         <div>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
-
         </div>
         )
     }
@@ -67,17 +65,12 @@ function renderToolTip(attributes) {
         return (
 
             <g>
-            <g>
                     <rect x={x} y={y - 20 - 20} width="100" height="30" fill="salmon" />
                     <text id="tooltip" data-date={dataDate} x={x} y={y - 20} fill="black" >
                         {dataDate}
                     </text>
 
-            </g>
-                <g fill="none" stroke="black" stroke-width="2">
-
-                <circle cx={x} cy={y} r="5" />
-                </g>
+                <circle cx={x} cy={y} r="5" fill="none" stroke="black" strokeWidth="2" />
             </g>
         );
     }

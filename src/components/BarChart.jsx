@@ -9,15 +9,12 @@ export default (props) => {
         yScale: yScale(props)
     };
 
-    console.log("BarChart " + props.showToolTip);
-
     return (
         <svg width={props.width} height={props.height} >
             <DataRectangles {...props} {...scales} />
             <XYAxis {...props} {...scales} />
 
         </svg>
-
     )
 }
 

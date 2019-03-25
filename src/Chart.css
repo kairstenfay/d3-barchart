@@ -1,0 +1,21 @@
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+#chart {
+  margin-top: 20px;
+  padding-top: 20px;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid darkgrey;
+  width: 70vw;
+  background-color: white;
+}
+
+body {
+  background-color: #edf3ff;
+  text-align: center;
+}

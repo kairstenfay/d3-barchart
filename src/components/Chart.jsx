@@ -1,10 +1,12 @@
 import React       from 'react';
 import BarChart from './BarChart';
+import '../Chart.css';
+import renderToolTip from '../actions/renderToolTip';
 
 const styles = {
-    width: Math.min(window.innerWidth, 700),
+    width: Math.min(window.innerWidth, 900),
     height: Math.min(window.innerHeight - 100, 400),
-    padding: 40,
+    padding: 100,
     showToolTip: false
 };
 
@@ -49,29 +51,13 @@ export default class Chart extends React.Component{
     render() {
 
         return (
-        <div>
+        <div id="chart">
+            <header className="App-header">
+                <h1 id="title">U.S. GDP from 1947 - 2015</h1>
+            </header>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
         </div>
         )
     }
 }
 
-function renderToolTip(attributes) {
-    if (attributes && attributes['data-date']) {
-        const dataDate = attributes['data-date'].nodeValue;
-        const x = attributes.x.nodeValue; // todo import padding
-        const y = attributes.y.nodeValue + 90; // todo import padding
-
-        return (
-
-            <g>
-                    <rect x={x} y={y - 20 - 20} width="100" height="30" fill="salmon" />
-                    <text id="tooltip" data-date={dataDate} x={x} y={y - 20} fill="black" >
-                        {dataDate}
-                    </text>
-
-                <circle cx={x} cy={y} r="5" fill="none" stroke="black" strokeWidth="2" />
-            </g>
-        );
-    }
-}

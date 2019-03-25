@@ -14,7 +14,7 @@ export default function(props) {
             key: index,
         };
 
-        const fillColor = (props.dataDate === coords[0]) ? 'salmon' : 'black';
+        const fillColor = (props.dataDate === coords[0]) ? '#ff8282' : 'grey'; // todo config
 
         return <rect className="bar" data-date={coords[0]} data-gdp={coords[1]} {...rectangleProps} fill={fillColor} />;
     };

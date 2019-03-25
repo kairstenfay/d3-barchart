@@ -43,7 +43,6 @@ export default class Chart extends React.Component{
             dataDate: attributes['data-date'].nodeValue,
             showToolTip: !this.state.showToolTip, // todo d-r-y
             toolTipSVG: (!this.state.showToolTip) ? renderToolTip(attributes) : null,
-            fillColor: (!this.state.showToolTip) ? "black" : "salmon",
         })
     }
 
@@ -60,4 +59,3 @@ export default class Chart extends React.Component{
         )
     }
 }
-

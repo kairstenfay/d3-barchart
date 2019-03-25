@@ -1,5 +1,6 @@
 import React       from 'react';
 import BarChart from './BarChart';
+import '../Chart.css';
 
 const styles = {
     width: Math.min(window.innerWidth, 700),
@@ -49,7 +50,10 @@ export default class Chart extends React.Component{
     render() {
 
         return (
-        <div>
+        <div id="chart">
+            <header className="App-header">
+                <h1 id="title">U.S. GDP</h1>
+            </header>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
         </div>
         )
@@ -65,10 +69,10 @@ function renderToolTip(attributes) {
         return (
 
             <g>
-                    <rect x={x} y={y - 20 - 20} width="100" height="30" fill="salmon" />
-                    <text id="tooltip" data-date={dataDate} x={x} y={y - 20} fill="black" >
-                        {dataDate}
-                    </text>
+                <rect x={x} y={y - 20 - 20} width="100" height="30" fill="salmon" />
+                <text id="tooltip" data-date={dataDate} x={x} y={y - 20} fill="black" >
+                    {dataDate}
+                </text>
 
                 <circle cx={x} cy={y} r="5" fill="none" stroke="black" strokeWidth="2" />
             </g>

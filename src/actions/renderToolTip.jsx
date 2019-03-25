@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function renderToolTip(attributes) {
+
     if (attributes && attributes['data-date']) {
         const dataDate = attributes['data-date'].nodeValue;
         const dataGDP = attributes['data-gdp'].nodeValue;

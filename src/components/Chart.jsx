@@ -4,9 +4,9 @@ import '../Chart.css';
 import renderToolTip from '../actions/renderToolTip';
 
 const styles = {
-    width: Math.min(window.innerWidth, 700),
+    width: Math.min(window.innerWidth, 900),
     height: Math.min(window.innerHeight - 100, 400),
-    padding: 40,
+    padding: 100,
     showToolTip: false
 };
 
@@ -52,7 +52,7 @@ export default class Chart extends React.Component{
         return (
         <div id="chart">
             <header className="App-header">
-                <h1 id="title">U.S. GDP</h1>
+                <h1 id="title">U.S. GDP from 1947 - 2015</h1>
             </header>
             <BarChart {...this.state} {...styles} toolTipAction={this.toggleToolTip} />
         </div>
